@@ -15,17 +15,25 @@ const uri = `mongodb+srv://${process.env.PROJECT_ID}:${process.env.PROJECT_PASS}
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 const run = async() => {
   try {
+    const allProject  = client.db("project").collection("projectData")
     const documentId = client.db("project").collection("projectItem")
-    const allProject = client.db("project").collection("project")
-    app.get("/projectdata",async(req,res)=>{
+    const aboutsData = client.db("project").collection("about")
+    app.get("/projectdata",async(req, res)=>{
       const query = {}
       const result = await allProject.find(query).toArray()
+      console.log(result)
       res.send(result )
     })
     app.get('/products/:id', async(req, res) => {
       const id = req?.params?.id
       const query = {index:id}
       const result = await documentId.findOne(query)
+      res.send(result)
+    })
+    app.get("/abouts", async(req, res)=>{
+      const query = {}
+      const result = await aboutsData.find(query).toArray()
+      console.log(result)
       res.send(result)
     })
   }
