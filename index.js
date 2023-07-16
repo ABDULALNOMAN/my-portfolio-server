@@ -21,7 +21,6 @@ const run = async() => {
     app.get("/projectdata",async(req, res)=>{
       const query = {}
       const result = await allProject.find(query).toArray()
-      console.log(result)
       res.send(result )
     })
     app.get('/products/:id', async(req, res) => {
@@ -33,7 +32,6 @@ const run = async() => {
     app.get("/abouts", async(req, res)=>{
       const query = {}
       const result = await aboutsData.find(query).toArray()
-      console.log(result)
       res.send(result)
     })
   }
